@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Vacation Bids</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+<p:chart
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    <h1>Welcome to Vacation Bids</h1>
+                </p:layoutUnit>
+
+
+                <p:layoutUnit position="center" >
+                    <h3>Please Place Your Vacation Bid</h3>
+                    <h:form>
+                        <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+                            <p:outputLabel for="user" value="User ID:" />                   
+                            <h:inputText id="user" value="#{mainBidBean.user}"  label="UserID" validatorMessage="User ID must be A capital letter followed by 4 numbers.(ex.A1111)">
+                                <f:validateRegex pattern="[A-Z][0-9][0-9][0-9][0-9]"/>
+                                <f:validateRequired/>
+                            </h:inputText>
+                            
+                            <h:message for="user" style="color:red"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+                            <p:outputLabel for="destination" value="Destination:" />
+                            <p:selectOneRadio id="destination" value="#{mainBidBean.destination}">
+                                <f:selectItem itemLabel="San Diego" itemValue="San Diego" />
+                                <f:selectItem itemLabel="Alaska" itemValue="Alaska" />
+                                <f:selectItem itemLabel="Florida" itemValue="Florida" />
+                                <f:validateRequired/>
+                            </p:selectOneRadio>
+                            
+
+
+                        </h:panelGrid>
+
+                        <p:panelGrid id="display" columns="2" columnClasses="label,value">
+                            <h:outputText value="Date " />
+                            <p:calendar id="inline" value="#{mainBidBean.date}" mode="inline" >
+                                <f:validateRequired/>
+                            </p:calendar>
+                           
+                        </p:panelGrid>
+                        <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+                            <p:outputLabel for="bid" value="Bid Amount: " />                   
+                            <h:inputText id="bid" value="#{mainBidBean.bid}"  label="BidAmount" validatorMessage="Bid Amount cannot be less than 100">
+                                <f:validateDoubleRange minimum="100.00" for="bid"/>
+                                <f:validateRequired/>
+                            </h:inputText>
+                            
+                            <h:message for="bid" style="color:red"/>
+                        </h:panelGrid>
+
+
+
+
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                            <p:commandButton value="Submit Bid" icon="ui-icon-check" ajax="false" action="#{mainBidBean.addNew()}" validateClient="true"/>
+
+                        </h:panelGrid>  
+
+                        <p:notificationBar position="top" effect="slide" styleClass="top" widgetVar="bar" style="height: 300px;">
+                            San Diego
+                            <h:graphicImage id="sandiego" value="resources/images/sandiego.jpg" style="padding: 0px 50px 50px 50px"/>
+                            Alaska
+                            <h:graphicImage value="resources/images/alaska.jpg" style="padding: 0px 50px 50px 50px" />
+                            Florida
+                            <h:graphicImage value="resources/images/florida.jpg" style="padding: 0px 50px 50px 50px"/>
+                        </p:notificationBar>
+
+                        <p:commandButton value="Show Vacation Pictures" onclick="PF('bar').show()" type="button" icon="ui-icon-arrow-1-s"/>
+                        <p:commandButton value="Hide Vacation Pictures" onclick="PF('bar').hide()" type="button" icon="ui-icon-arrow-1-n"/>
+                    </h:form>
+                    <br />
+                    
+                </p:layoutUnit>
+
+            </p:layout>
+
+
+        </h:body>
+
+    </f:view>
+</html>
+
